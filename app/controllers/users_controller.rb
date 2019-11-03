@@ -6,15 +6,39 @@ class UsersController < ApplicationController
     end
 
     get "/users/new" do
+        @video_games = VideoGames.all
         erb :'/users/new'
     end
 
     post "/users" do
-
+        @user = User.create(params[:user])
+        if !params["title"]["name"].empty?
+            @user.name << VideoGames.create(title: params["title"]["name"])
+        end
+        redirect "users/#{@user.id}"
     end
 
-    get "/users/:name/edit" do
+    get "/users/:id/edit" do
+        @user = User.find(params[:id])
+        @video_games = VideoGames.all
         erb :'/users/edit'
+    end
+
+    get "/users/:id" do 
+        @user = User.find(params[:id])
+        erb :'/user/show'
+    end
+
+    patch "/owners/:id" do 
+        if !params[:user].keays.include?("video_game_ids")
+            params[:user]["video_game_ids"] = []
+        end
+        @user = User.find(params[:id])
+        @user.update(params["user"])
+        if !params["video_game"]["title"].empty?
+            @user.video_games << VideoGames.create(name: params["video_games"]["name"])
+        end
+        redirect "users/#{@user.id}"
     end
 
     get '/logout' do
