@@ -1,4 +1,9 @@
-class UsersController < ApplicationController
+class UsersController <  ApplicationController
+
+    get "/users/home" do 
+        @users = Users.all
+        erb :'users/home'
+    end
 
     get "/users" do
         @users = Users.all
@@ -26,7 +31,7 @@ class UsersController < ApplicationController
 
     get "/users/:id" do 
         @user = User.find(params[:id])
-        erb :'/user/show'
+        erb :'/users/show'
     end
 
     patch "/owners/:id" do 
