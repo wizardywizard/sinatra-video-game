@@ -8,19 +8,24 @@ class ApplicationController < Sinatra::Base
     set :sessions, true
   end
 
+  def current_user
+    User.find_by_id(session[:user_id])
+  end
+
+  def logged_in?
+    !!current_user
+  end
+
+  def redirect_if_not_logged_in
+    redirect "/login" unless logged_in?
+  end
+
   get "/" do
     erb :'/home'
   end
 
   get '/registrations/signup' do
     erb :'/registrations/signup'
-  end
-
-  post "/registrations" do
-    @user = User.new(name: params["name"], email: params["email"], password: params["password"])
-    @user.save
-    session[:user_id] = @user.id 
-    redirect '/users/home'
   end
 
   get "/sessions/login" do
@@ -30,7 +35,15 @@ class ApplicationController < Sinatra::Base
         redirect "/user/home"
     else 
     erb :'sessions/login'
+    end
   end
+
+  post "/registrations" do
+    @user = User.new(name: params["name"], email: params["email"], password: params["password"])
+    @user.save
+    session[:user_id] = @user.id 
+    redirect '/users/home'
+  end  
 
   post "/sessions" do
     @user = User.find_by(email: params[:email], password:[:password])

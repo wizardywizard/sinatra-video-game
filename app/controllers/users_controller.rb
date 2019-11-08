@@ -1,31 +1,31 @@
 class UsersController <  ApplicationController
 
     get "/users/home" do 
-        @users = Users.all
+        @users = User.all
         erb :'users/home'
     end
 
     get "/users" do
-        @users = Users.all
+        @users = User.all
         erb :'/users/index'
     end
 
     get "/users/new" do
-        @video_games = VideoGames.all
+        @video_games = VideoGame.all
         erb :'/users/new'
     end
 
     post "/users" do
         @user = User.create(params[:user])
         if !params["title"]["name"].empty?
-            @user.name << VideoGames.create(title: params["title"]["name"])
+            @user.name << VideoGame.create(title: params["title"]["name"])
         end
         redirect "users/#{@user.id}"
     end
 
     get "/users/:id/edit" do
         @user = User.find(params[:id])
-        @video_games = VideoGames.all
+        @video_games = VideoGame.all
         erb :'/users/edit'
     end
 
@@ -41,7 +41,7 @@ class UsersController <  ApplicationController
         @user = User.find(params[:id])
         @user.update(params["user"])
         if !params["video_game"]["title"].empty?
-            @user.video_games << VideoGames.create(name: params["video_games"]["name"])
+            @user.video_games << VideoGame.create(name: params["video_games"]["name"])
         end
         redirect "users/#{@user.id}"
     end

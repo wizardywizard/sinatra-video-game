@@ -17,9 +17,19 @@
     <nav>
     <a href="/video_games">All Games</a>
     <a href="/video_games/new">New Game</a>
+    <% if logged_in?%>
+      <form method="post" action="/logout" style="display: inLine">
+      <input type="hidden" name="_method" value="delete"/>
+      <input type="submit" value="Log Out"/>
+      </form>
+    <%else%>
     <a href="//registrations/signup">Sign Up</a>
     <a href="/sessions/login">Log In</a>
+    <%end%>
     </nav>
+    <%if logged_in?%>
+    <p>Currently logged in as: <%= current_user.name%></p>
+    <%end%>
     <div class="wrapper">
 
         <%= yield %>

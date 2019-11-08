@@ -1,17 +1,17 @@
 class VideoGamesController < ApplicationController
 
     get "/video_games" do
-        @video_games = VideoGames.all
+        @video_games = VideoGame.all
         erb :'video_games/index'
     end
 
     get "/video_games/new" do
-        @user = Users.all
+        @user = User.all
         erb :'/video_games/new'
     end
 
     post "/video_games" do
-        @video_games = VideoGames.create(params[:video_game])
+        @video_games = VideoGame.create(params[:video_game])
         if !params[:user][:name].empty?
             @video_games.user = User.create(name: params[:user][:name])
         else
@@ -22,13 +22,13 @@ class VideoGamesController < ApplicationController
     end
 
     get '/video_games/:id/edit' do
-        @video_game = ViderGames.find_by_id(params[:id])
-        @User = Users.all
+        @video_game = ViderGame.find_by_id(params[:id])
+        @User = User.all
         erb :'/video_games/edit'
       end
     
       get '/video_games/:id' do 
-        @video_game = VideoGamess.find(params[:id])
+        @video_game = VideoGames.find(params[:id])
         erb :'/video_games/show'
       end
     
