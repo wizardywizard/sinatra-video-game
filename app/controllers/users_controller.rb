@@ -11,11 +11,13 @@ class UsersController <  ApplicationController
     end
 
     get "/users/new" do
+        redirect_if_not_logged_in
         @video_games = VideoGame.all
         erb :'/users/new'
     end
 
     post "/users" do
+        redirect_if_not_logged_in
         @user = User.create(params[:user])
         if !params["title"]["name"].empty?
             @user.name << VideoGame.create(title: params["title"]["name"])
@@ -24,6 +26,7 @@ class UsersController <  ApplicationController
     end
 
     get "/users/:id/edit" do
+        redirect_if_not_logged_in
         @user = User.find(params[:id])
         @video_games = VideoGame.all
         erb :'/users/edit'
@@ -34,7 +37,8 @@ class UsersController <  ApplicationController
         erb :'/users/show'
     end
 
-    patch "/owners/:id" do 
+    patch "/users/:id" do 
+        redirect_if_not_logged_in
         if !params[:user].keays.include?("video_game_ids")
             params[:user]["video_game_ids"] = []
         end

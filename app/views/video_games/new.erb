@@ -1,5 +1,5 @@
 <h1>New Game</h1>
-<form method="post" action="/video_game">
+<form method="post" action="/video_games">
  <p>
     <label for="title" style="display: block;">Title:</label>
     <input type="text" name="title" />
@@ -14,8 +14,13 @@
  </p>
  <p>
  <label for="complete?" style="">Did you complete it?</label>
- <input type="checkbox" 
+ <input type="checkbox" name="yes" value="yes">Yes 
+ <input type="checkbox" name="no" value="no">No 
  </p>
  <p>
  <label for="multiplayer?" style="">Can you play with friends?</label>
+ <input type="checkbox" name="yes" value="yes">Yes 
+ <input type="checkbox" name="no" value="no">No 
  </p>
+ <input type="submit" value="Add Game" />
+ </form>

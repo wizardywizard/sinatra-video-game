@@ -1,0 +1,13 @@
+<h1>Edit Game</h1>
+<a href="/video_games/<%= @video_game.id %>/edit">Reload</a>
+<form method="post" action="/video_games/<%= @video_game.id %>">
+  <input type="hidden" name="_method" value="patch" />
+  <p>
+    <label for="title" style="display: block;">title:</label>
+    <input type="text" name="title" value="<%= @video_game.title %>" />
+  </p>
+  <p>
+    <label for="system" style="display: block;">System</label>
+  </p>
+  <input type="submit" value="Update Game" />
+</form>
