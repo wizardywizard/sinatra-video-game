@@ -4,8 +4,8 @@ class CreateVideoGames < ActiveRecord::Migration
         t.string :title
         t.string :system
         t.string :genre
-        t.boolean :complete?
-        t.boolean :multiplayer?
+        t.boolean :complete
+        t.boolean :multiplayer
       end  
     end
   end

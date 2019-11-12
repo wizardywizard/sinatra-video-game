@@ -1,5 +1,10 @@
 <h1><%= @video_game.title %></h1>
 <p>For the:<%= @video_game.system %></p>
 <p>Genre:<%= @video_game.genre %></p>
-<p>Did you beat the game?<%= @video_game.complete? %></p>
-<p>Can you play with friends?<%= @video_game.multiplayer? %></p>
+<p>Did you beat the game?<%= @video_game.complete %></p>
+<p>Can you play with friends?<%= @video_game.multiplayer %></p>
+<a href="/video_games/<%= @video_game.id %>/edit">Edit </a>
+<form method="post" action="/video_games/<%= @video_game.id %>">
+    <input type="hidden" name="_method" value="delete" />
+    <input type="submit" value="Delete game" />
+</form>

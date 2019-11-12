@@ -12,7 +12,7 @@ class UsersController <  ApplicationController
 
     get "/users/new" do
         redirect_if_not_logged_in
-        @video_games = VideoGame.all
+        @video_games = VideoGame.visible
         erb :'/users/new'
     end
 
@@ -28,7 +28,7 @@ class UsersController <  ApplicationController
     get "/users/:id/edit" do
         redirect_if_not_logged_in
         @user = User.find(params[:id])
-        @video_games = VideoGame.all
+        @video_games = VideoGame.visible
         erb :'/users/edit'
     end
 
@@ -49,9 +49,4 @@ class UsersController <  ApplicationController
         end
         redirect "users/#{@user.id}"
     end
-
-    get '/logout' do
-        session.clear
-    end
-
 end

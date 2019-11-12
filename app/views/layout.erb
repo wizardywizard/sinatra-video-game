@@ -23,15 +23,17 @@
       <input type="submit" value="Log Out"/>
       </form>
     <%else%>
-    <a href="//registrations/signup">Sign Up</a>
+    <a href="/registrations/signup">Sign Up</a>
     <a href="/sessions/login">Log In</a>
     <%end%>
     </nav>
     <%if logged_in?%>
-    <p>Currently logged in as: <%= current_user.name%></p>
+    <p>Currently logged in as: <%= current_user.name || "user"%></p>
     <%end%>
     <div class="wrapper">
-
+    <div style="color: red">
+      <%= @error %>
+      </div>
         <%= yield %>
 
       <footer class="branding">

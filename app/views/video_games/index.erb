@@ -1,6 +1,8 @@
-<h1> Welcome,<%=current_user.name%> to your game library</h1>
+<h1> Welcome,<%= current_user.name || "user"%> to your game library</h1>
 <ul>
-<% @video_games.all.each do |game| %>
-    <li><a href="/video_games"<%= game.title %></a></li>
+<% @video_games.each do |game| %>
+    <li>
+    <a href="/video_games/<%= game.id %>"><%= game.title %></a>
+    </li>
     <% end %>
 </ul>
