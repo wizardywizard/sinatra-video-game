@@ -1,6 +1,7 @@
 class UsersController <  ApplicationController
 
     get "/users/home" do 
+        redirect_if_not_logged_in
         @users = User.all
         erb :'users/home'
     end

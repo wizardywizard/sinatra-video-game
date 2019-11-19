@@ -28,11 +28,9 @@ class ApplicationController < Sinatra::Base
     erb :'/registrations/signup'
   end
 
-  get "/sessions/login" do
-    @user = User.find_by(email: params[:email])
-    if @user 
-      @user.authenticate(params[:password])
-        redirect "/user/home"
+  get "/sessions/login" do    
+    if logged_in?       
+        redirect "/users/home"
     else 
     erb :'sessions/login'
     end

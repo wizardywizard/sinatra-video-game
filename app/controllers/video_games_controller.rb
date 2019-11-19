@@ -13,17 +13,25 @@ class VideoGamesController < ApplicationController
     end
 
     post "/video_games" do
-        redirect_if_not_logged_in
+        redirect_if_not_logged_in        
         @video_game = current_user.video_games.create(title: params[:title], system: params[:system], genre: params[:genre], complete: params[:complete], multiplayer: params[:multiplayer])
-        @video_game.save
-        redirect to "/video_games/#{@video_game.id}"
+        if @video_game.save
+          redirect to "/video_games/#{@video_game.id}"
+        else
+          @error = "changes couldn't be saved because of the following errors: #{@video_game.errors.full_messages.to_sentence}"
+          erb :"/video_games/new"
+        end
     end
 
     get '/video_games/:id/edit' do
       redirect_if_not_logged_in
         @video_game = VideoGame.find(params[:id])
+        if @video_game.user_id == current_user.id
         @User = User.all
         erb :'/video_games/edit'
+        else
+          redirect to '/'
+        end
       end
     
       get '/video_games/:id' do 
@@ -39,7 +47,7 @@ class VideoGamesController < ApplicationController
         if @video_game.update(title: params[:title], system: params[:system], genre: params[:genre], complete: params[:complete], multiplayer: params[:multiplayer])
          redirect to "/video_games/#{@video_game.id}"
         else
-          @error = "changes couldn't be saved because of the following errors: #{@video_game.error.full_messages.to_sentence}"
+          @error = "changes couldn't be saved because of the following errors: #{@video_game.errors.full_messages.to_sentence}"
           erb :"video_games/edit"
         end
       end
